@@ -1,17 +1,24 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-import './App.css';
+import './App.scss';
+import HomePage from '../../pages/homePage';
+import AboutPage from '../../pages/aboutPage';
+import Page404 from '../../pages/page404';
 
-console.log(123);
+import Layout from '../layout';
 
 function App() {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-          Learn React
-        </a>
-      </header>
+    <div className='App wrapper'>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<HomePage />}></Route>
+          <Route path='/about' element={<AboutPage />}></Route>
+          <Route path='/404' element={<Page404 />}></Route>
+          <Route path='*' element={<Page404 />}></Route>
+        </Route>
+      </Routes>
     </div>
   );
 }
