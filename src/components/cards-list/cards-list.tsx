@@ -22,6 +22,10 @@ export default class CardList extends Component<CardListProps, CardListState> {
   });
 
   render() {
-    return <ul className='cards-list'>{this.cards}</ul>;
+    return (
+      <ul className='cards-list' data-testid='cards-list'>
+        {this.cards}
+      </ul>
+    );
   }
 }
