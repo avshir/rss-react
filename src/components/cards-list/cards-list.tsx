@@ -12,7 +12,7 @@ type CardListState = {};
 
 export default class CardList extends Component<CardListProps, CardListState> {
   cards = this.props.products.slice(0, 8).map((product) => {
-    const { id, ...productProps } = product;
+    const { id } = product;
 
     return (
       <li key={id} className='cards-list__item'>
