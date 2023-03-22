@@ -10,25 +10,39 @@ export default class SearchPanel extends Component<SearchPanelProps, SearchPanel
     searchValue: '',
   };
 
+  componentDidMount() {
+    this.getSearchValue();
+  }
+
+  componentWillUnmount() {
+    localStorage.setItem('searchValue', this.state.searchValue);
+  }
+
+  getSearchValue(): void {
+    const searchValueLS = localStorage.getItem('searchValue') || '';
+    if (searchValueLS) {
+      this.setState({
+        searchValue: searchValueLS,
+      });
+    }
+  }
+
   onSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const newSearchValue = e.target.value.trimStart();
     this.setState({
       searchValue: newSearchValue,
     });
-
-    localStorage.setItem('searchValue', this.state.searchValue);
   };
 
   render() {
     const searchText = 'Type here to search...';
-    const searchValueLS = localStorage.getItem('searchValue') || '';
 
     return (
       <input
         type='text'
         className='search-panel search-input'
         placeholder={searchText}
-        value={this.state.searchValue || searchValueLS}
+        value={this.state.searchValue}
         onChange={this.onSearchChange}
       />
     );
