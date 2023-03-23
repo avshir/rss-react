@@ -12,4 +12,14 @@ describe('test App component', () => {
     );
     screen.debug();
   });
+
+  test('renders on a bad page page404', () => {
+    render(
+      <MemoryRouter initialEntries={['/bad-route']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByText(/page not found/i)).toBeInTheDocument();
+    screen.debug();
+  });
 });
