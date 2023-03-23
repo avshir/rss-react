@@ -7,7 +7,7 @@ type SearchPanelState = { searchValue: string };
 
 export default class SearchPanel extends Component<SearchPanelProps, SearchPanelState> {
   state = {
-    searchValue: '',
+    searchValue: localStorage.getItem('searchValue') || '',
   };
 
   componentDidMount() {
