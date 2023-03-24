@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import './header.css';
+import './header.scss';
 
 export default class Header extends Component<{}, {}> {
   render() {
@@ -18,7 +18,7 @@ export default class Header extends Component<{}, {}> {
               <Link to='/about'>About</Link>
             </li>
             <li>
-              <Link to='/404'>Page 404</Link>
+              <Link to='/form'>Form</Link>
             </li>
           </ul>
         </nav>

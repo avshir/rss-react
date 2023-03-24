@@ -1,0 +1,18 @@
+@import '../../scss/constants.scss';
+
+.header {
+  background-color: $accent2-color;
+  padding: 20px 0;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: space-between;
+
+  max-width: 300px;
+  margin: 0 0 0 auto;
+}
+
+.nav-menu a.active {
+  color: $accent3-color;
+}
