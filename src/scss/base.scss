@@ -10,18 +10,8 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.4;
-  color: $text-color-light;
-  background: $accent8-color;
-}
-
-a {
-  color: $accent2-color;
-  transition: 0.3s;
-}
-
-a:hover,
-a:active {
-  color: $accent7-color;
+  color: $text-color;
+  background-color: $light-color-1;
 }
 
 .wrapper {
@@ -40,45 +30,41 @@ a:active {
   padding: 0 20px;
 }
 
+a {
+  color: $text-color-light;
+  transition: color 0.3s;
+}
+
+a:hover,
+a:active {
+  color: $accent3-color;
+}
+
 .hide {
   display: none;
 }
 
 .btn {
-  border-radius: $border-radius;
-  padding: 10px 15px;
+  border-radius: 5px;
+  padding: 5px 10px;
   min-width: 100px;
   background-color: $accent2-color;
-  color: $text-color;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  text-transform: lowercase;
-  // height: 30px;
+  color: $text-color-light;
+  min-height: 30px;
   cursor: pointer;
   transition: 0.3s;
-  @media (max-width: 768px) {
-    font-size: 16px;
-    padding: 8px 12px;
-  }
+
   @media (max-width: 480px) {
     font-size: 14px;
   }
 }
 
-.btn--transp {
-  background-color: transparent;
-}
-
-.btn--round {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 30px;
+.btn--cart {
+  min-width: auto;
   width: 30px;
-  height: 30px;
+  min-height: 21px;
   line-height: 1;
-  font-size: 14px;
+  font-size: 10px;
 }
 
 .btn--big {
@@ -88,217 +74,167 @@ a:active {
 .btn--mini {
   min-width: auto;
 }
-.btn--border {
-  background-color: transparent;
-  border: 1px solid $text-color-light;
-}
 
 .btn--col-3 {
   background-color: $accent3-color;
-  color: $text-color-light;
+  color: $text-color;
+  font-weight: 700;
 }
-
 .btn--col-5 {
   background-color: $accent5-color;
-  color: $text-color-light;
-}
-
-.btn--col-7 {
-  background-color: $accent7-color;
   color: $text-color;
-  font-weight: 700;
-}
-
-.btn--fixed-center {
-  position: fixed;
-  z-index: 50;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-//for use:
-//import  font-family: "HennyPenny";
-//for container-game: position: relative;
-.btn--start-game {
-  font-family: 'HennyPenny';
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  font-size: 22px;
-  font-weight: 700;
-  color: $text-color;
-
-  border-radius: $border-radius-big;
-  padding: 26px 22px;
-  height: auto;
-
-  @media (max-width: 768px) {
-    font-size: 16px;
-    padding: 22px 18px;
-  }
-  @media (max-width: 480px) {
-    font-size: 14px;
-    padding: 20px 16px;
-  }
 }
 
 .btn:hover,
-.btn:focus {
-  background: $gradient-4;
-  background-color: $accent6-color;
-  color: $text-color;
-}
-.btn--transp:hover,
-.btn--transp:focus {
-  background: inherit;
-  background-color: transparent;
-}
-
-.btn--col-3:hover,
-.btn--col-3:focus,
-.btn--col-7:hover,
-.btn--col-7:focus {
-  background: $gradient-5;
-  background-color: $accent3-color;
-  color: $text-color-light;
-}
-
+.btn:focus,
 .btn--col-5:hover {
-  background-color: $accent9-color;
-  color: $text-color;
-}
-
-.btn--border:hover {
-  border: none;
-  background-color: $accent9-color;
+  background-color: $accent1-color;
   color: $text-color-light;
 }
 
-input,
-input::placeholder {
-  font-family: 'HennyPenny';
-  letter-spacing: 2px;
+.btn--border {
+  border: 1px solid $gray-color;
 }
 
-input {
-  color: $accent3-color;
+.amount-of {
+  display: inline-block;
+  width: 45px;
+  text-align: center;
+  border-radius: 5px;
+
+  height: 21px;
+  font-size: 14px;
   font-weight: 700;
+  padding: 2px 5px;
+  color: $accent1-color;
+  background-color: $light-color-1;
+  cursor: pointer;
 }
-
-// ==== scrollbar in overflow-y ====
+.amount-of--dark-bg {
+  background-color: $light-color-2;
+}
+// scrollbar in overflow-y
 ::-webkit-scrollbar-track {
-  background: $gray-color-light;
+  background: $gray-light-color;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $accent3-color;
+  background-color: $accent1-color;
   border-radius: 10px;
-  border: 2px solid $gray-color-light;
+  border: 2px solid $gray-light-color;
 }
 
 ::-webkit-scrollbar {
   width: 10px;
 }
-// ==== /scrollbar in overflow-y ====
 
-.accent-font {
-  font-family: 'HennyPenny';
-  letter-spacing: 2px;
-  height: auto;
-}
-.accent-font--upper {
-  text-transform: uppercase;
-}
-
-// styles for Modal, ModalMessage components
-.title-modal {
-  font-family: 'HennyPenny';
-  color: $text-color-light;
+input,
+select,
+textarea {
+  height: 21px;
+  background-color: $light-color-1;
+  color: $accent1-color;
   font-weight: 700;
-  text-align: center;
+  padding: 2px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+input[type='range'] {
+  padding: 0;
+}
 
-  text-transform: none;
-  letter-spacing: 2.8px;
-  font-size: 32px;
-  margin: 0 0 20px 0;
-  @media (max-width: 768px) {
-    font-size: 26px;
-    margin: 0 0 15px 0;
+input:checked {
+  accent-color: $accent1-color;
+  color: $accent1-color;
+}
+
+input:focus,
+input:focus:valid {
+  outline: 2px solid $accent1-color;
+}
+
+input::placeholder {
+  font-weight: 500;
+  color: $gray-color;
+}
+
+//delete value from placeholder when focused
+input:focus::placeholder {
+  color: transparent;
+}
+
+input:invalid:required {
+  border: 1px solid $error-color;
+}
+
+input:valid:required {
+  outline: 1px solid $accent2-color;
+}
+
+input[type='checkbox'],
+input[type='checkbox']:focus:valid,
+input[type='range']:focus,
+input[type='range']:focus:valid {
+  outline: none;
+}
+
+input:focus:invalid {
+  border: none;
+}
+
+.input--big {
+  width: 180px;
+}
+
+.input--payment {
+  width: 100%;
+  height: 30px;
+}
+
+.input--num {
+  width: 45px;
+  text-align: center;
+}
+
+// ===== popup ======
+.popup {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  &__content {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 440px;
+    background-color: $light-color-2;
+    padding: 20px;
+    border-radius: 5px;
   }
 }
-.title-modal-message {
-  font-family: 'HennyPenny';
-  color: $text-color-light;
-  font-weight: 700;
-  text-align: center;
 
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  font-size: 24px;
-  margin: 0 0 15px 0;
-  @media (max-width: 480px) {
-    font-size: 20px;
-    margin: 0 0 10px 0;
+.popup-message {
+  z-index: 15;
+
+  &__content {
+    width: 60%;
+    margin: 0 auto;
+    max-width: 300px;
+    background-color: $accent2-color;
+    padding: 20px;
+    border-radius: 5px;
   }
-}
-
-.title {
-  color: #fff;
-}
-
-.title--upper {
-  text-transform: uppercase;
-}
-
-.title--dark {
-  color: $text-color;
-}
-
-.subtitle-modal {
-  font-size: 20px;
-  letter-spacing: 1px;
-  color: $text-color-light;
-  font-weight: 700;
-  text-align: center;
-  margin: 0 0 10px 0;
-  @media (max-width: 480px) {
+  &__message-info {
+    color: $text-color-light;
     font-size: 18px;
-    margin: 0 0 8px 0;
-  }
-}
-
-.text-message {
-  color: $text-color;
-  font-size: 22px;
-  font-weight: 700;
-  font-family: 'HennyPenny';
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
-}
-
-.score-number {
-  // font-family: 'Roboto', Arial, sans-serif;;
-  font-weight: 700;
-  font-size: 24px;
-  color: $accent6-color;
-  padding: 0 10px;
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
-}
-
-.score-info {
-  background: $gradient-4;
-  font-size: 22px;
-  line-height: 1;
-  cursor: default;
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
-  @media (max-width: 480px) {
-    font-size: 16px;
+    text-align: center;
   }
 }
 
