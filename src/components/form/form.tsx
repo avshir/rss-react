@@ -33,6 +33,8 @@ export default class Form extends Component<FormProps, FormState> {
 
     this.props.addCardForm(newCard);
 
+    alert('Your feedback will be added! Thanks');
+
     if (this.formRef.current) {
       this.formRef.current.reset();
     }
