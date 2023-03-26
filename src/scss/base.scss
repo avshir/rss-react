@@ -44,6 +44,14 @@ a:active {
   display: none;
 }
 
+.page__title {
+  position: absolute;
+  top: -47px;
+  right: 0;
+  left: 0;
+  color: $accent3-color;
+}
+
 .btn {
   border-radius: 5px;
   padding: 5px 10px;
@@ -86,7 +94,6 @@ a:active {
 }
 
 .btn:hover,
-.btn:focus,
 .btn--col-5:hover {
   background-color: $accent1-color;
   color: $text-color-light;
