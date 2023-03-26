@@ -40,7 +40,7 @@ export default class SearchPanel extends Component<SearchPanelProps, SearchPanel
     return (
       <input
         type='text'
-        className='search-panel search-input'
+        className='search-panel search-input btn--border'
         placeholder={searchText}
         value={this.state.searchValue}
         onChange={this.onSearchChange}
