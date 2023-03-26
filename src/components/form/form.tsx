@@ -1,52 +1,113 @@
-import React, { Component } from 'react';
+import React, { Component, FormEvent } from 'react';
 
 import './form.scss';
+import { ICardForm } from '../cardForm/cardForm';
 
-type FormProps = {};
+type FormProps = {
+  addCardForm: (card: ICardForm) => void;
+};
 type FormState = {};
 
 export default class Form extends Component<FormProps, FormState> {
+  private formRef = React.createRef<HTMLFormElement>();
+  private userNameRef = React.createRef<HTMLInputElement>();
+  private genderRef = React.createRef<HTMLInputElement>(); //input radio
+  private birthdayRef = React.createRef<HTMLInputElement>();
+  private countryRef = React.createRef<HTMLSelectElement>();
+  private feedbackTextRef = React.createRef<HTMLTextAreaElement>();
+  private isConsentRef = React.createRef<HTMLInputElement>();
+  private imageRef = React.createRef<HTMLInputElement>();
+
+  handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const newCard: ICardForm = {
+      userName: this.userNameRef.current?.value || '',
+      gender: this.genderRef.current?.value || '',
+      birthday: this.birthdayRef.current?.value || '',
+      country: this.countryRef.current?.value || '',
+      feedbackText: this.feedbackTextRef.current?.value || '',
+      isConsentPersonalData: this.isConsentRef.current?.checked,
+      imageSrc: this.imageRef?.current?.files ? URL.createObjectURL(this.imageRef.current.files[0]) : '',
+    };
+
+    this.props.addCardForm(newCard);
+
+    if (this.formRef.current) {
+      this.formRef.current.reset();
+    }
+  };
+
   render() {
     return (
-      <form id='add-card-form' className='form' action='/' method='post'>
+      <form
+        id='add-card-form'
+        className='form'
+        action='/'
+        method='post'
+        onSubmit={this.handleSubmit}
+        ref={this.formRef}
+      >
         <h3 className='form__title'>Add feedback</h3>
 
         <div className='form__item'>
-          <label className='form__label' htmlFor='user-name'>
+          <label className='form__label' htmlFor='userName'>
             Your name
           </label>
-          <input className='form__input user-name' type='text' placeholder='Name' id='user-name'></input>
+          <input
+            className='form__input user-name'
+            type='text'
+            placeholder='Name'
+            name='userName'
+            ref={this.userNameRef}
+            required
+          ></input>
         </div>
         <div className='form__item'>
           <label className='form__label' htmlFor='date-birthday'>
             Your birthday
           </label>
-          <input className='form__input date' type='date' id='date-birthday'></input>
+          <input className='form__input date' type='date' id='date-birthday' ref={this.birthdayRef} required></input>
         </div>
 
         <div className='form__item'>
-          <label className='form__label' htmlFor='country-list'>
+          <label className='form__label' htmlFor='country'>
             Where are you from?
           </label>
-          <select className='form__input' name='country' id='country-list'>
+          <select className='form__input' name='country' ref={this.countryRef} required>
             <option value='select-title' disabled>
               country
             </option>
-            <option value='belarus'>Belarus</option>
-            <option value='poland'>Poland</option>
-            <option value='lithuania'>Lithuania</option>
-            <option value='france'>France</option>
-            <option value='sweden'>Sweden</option>
+            <option value='Belarus'>Belarus</option>
+            <option value='Poland'>Poland</option>
+            <option value='Lithuania'>Lithuania</option>
+            <option value='France'>France</option>
+            <option value='Sweden'>Sweden</option>
           </select>
         </div>
 
         <div className='form__radio'>
           <div className='form__radio-item'>
-            <input className='form__radio-input' type='radio' name='gender' value='female' id='female' checked />
+            <input
+              className='form__radio-input'
+              type='radio'
+              name='gender'
+              value='female'
+              id='female'
+              ref={this.genderRef}
+              checked
+            />
             <label htmlFor='female'>female</label>
           </div>
           <div className='form__radio-item'>
-            <input className='form__radio-input' type='radio' name='gender' value='male' id='male' />
+            <input
+              className='form__radio-input'
+              type='radio'
+              name='gender'
+              value='male'
+              id='male'
+              ref={this.genderRef}
+            />
             <label htmlFor='male'>male</label>
           </div>
         </div>
@@ -55,21 +116,39 @@ export default class Form extends Component<FormProps, FormState> {
           <label className='form__label' htmlFor='profile'>
             Profile picture
           </label>
-          <input className='form__input user-image' type='file' id='profile'></input>
+          <input
+            className='form__input user-image'
+            type='file'
+            id='profile'
+            name='profile'
+            accept='image/*,.pdf'
+            ref={this.imageRef}
+          ></input>
         </div>
         <div className='form__item'>
           <label className='form__label' htmlFor='feedback'>
             Your feedback
           </label>
-          <textarea className='form__input form__textarea' name='feedback' id='feedback'></textarea>
+          <textarea
+            className='form__input form__textarea'
+            name='feedback'
+            id='feedback'
+            ref={this.feedbackTextRef}
+          ></textarea>
         </div>
 
         <div className='form__item-checkbox'>
-          <input className='form__input-checkbox' type='checkbox' id='agree-consent-data'></input>
+          <input
+            className='form__input-checkbox'
+            type='checkbox'
+            id='agree-consent-data'
+            ref={this.isConsentRef}
+          ></input>
           <label className='form__label-checkbox' htmlFor='agree-consent-data'>
             I consent to my personal data
           </label>
         </div>
+
         <div className='form__wrapper'>
           <button className='btn' type='submit'>
             Submit
@@ -78,8 +157,6 @@ export default class Form extends Component<FormProps, FormState> {
             Reset
           </button>
         </div>
-
-        <input type='hidden' name='tracking-code' value='1'></input>
       </form>
     );
   }

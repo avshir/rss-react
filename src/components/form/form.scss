@@ -10,11 +10,7 @@
   background-color: $light-color-2;
   border-radius: $border-radius;
   padding: 20px;
-  margin: 0 auto;
-
-  &__person-details {
-    margin: 0 0 20px 0;
-  }
+  margin: 0 auto 20px;
 
   &__title {
     font-size: 22px;
@@ -58,14 +54,6 @@
   &__label-checkbox {
     color: $accent1-color;
     font-weight: 700;
-  }
-
-  &__card-details {
-    margin: 0 0 20px 0;
-  }
-
-  &__btn {
-    text-align: center;
   }
 
   &__radio {
