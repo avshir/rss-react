@@ -50,7 +50,7 @@ export default class FormPage extends Component<FormPageProps, FormPageState> {
     const { cardsForm } = this.state;
 
     return (
-      <div className='form-page container'>
+      <div className='form-page container' role='form-page'>
         <h2 className='page__title'>Form page</h2>
         <Form addCardForm={this.addCardForm} />
         <CardFormList cardsForm={cardsForm} />
