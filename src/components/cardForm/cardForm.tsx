@@ -8,7 +8,7 @@ export interface ICardForm {
   gender: string;
   birthday: string;
   country: string;
-  feedbackText?: string;
+  feedbackText: string;
   isConsentPersonalData?: boolean;
   imageSrc?: string;
 }
@@ -22,7 +22,7 @@ export default class CardForm extends Component<CardFormProps, CardFormState> {
     const { userName, gender, birthday, country, isConsentPersonalData, feedbackText, imageSrc } = card;
 
     return (
-      <div className='card'>
+      <div className='card' role='card-form'>
         <div className='card__img'>
           <div className='card__img-wrapper'>
             <img src={imageSrc} alt='image profile' />
@@ -42,7 +42,7 @@ export default class CardForm extends Component<CardFormProps, CardFormState> {
         </div>
 
         <div className='card__info'>
-          <p className='card__feedback-text'>“{feedbackText}„</p>
+          <p className='card__feedback-text'>{feedbackText}</p>
         </div>
         <div className='card__consent-data'>
           Do you consent to my personal data? <span>{isConsentPersonalData ? 'Yes' : 'No'}</span>
