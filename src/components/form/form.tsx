@@ -11,27 +11,32 @@ type FormState = {};
 export default class Form extends Component<FormProps, FormState> {
   private formRef = React.createRef<HTMLFormElement>();
   private userNameRef = React.createRef<HTMLInputElement>();
-  private genderRef = React.createRef<HTMLInputElement>(); //input radio
   private birthdayRef = React.createRef<HTMLInputElement>();
   private countryRef = React.createRef<HTMLSelectElement>();
   private feedbackTextRef = React.createRef<HTMLTextAreaElement>();
   private isConsentRef = React.createRef<HTMLInputElement>();
   private imageRef = React.createRef<HTMLInputElement>();
 
-  handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  createCardForm(): ICardForm {
+    const genderArr: HTMLInputElement[] = [...this.formRef.current?.['gender']];
+    const gender = (genderArr.find((el) => el.checked) as HTMLInputElement).value;
 
-    const newCard: ICardForm = {
+    return {
       userName: this.userNameRef.current?.value || '',
-      gender: this.genderRef.current?.value || '',
+      gender: gender || '',
       birthday: this.birthdayRef.current?.value || '',
       country: this.countryRef.current?.value || '',
       feedbackText: this.feedbackTextRef.current?.value || '',
       isConsentPersonalData: this.isConsentRef.current?.checked,
-      imageSrc: this.imageRef?.current?.files ? URL.createObjectURL(this.imageRef.current.files[0]) : '',
+      imageSrc: this.imageRef.current?.files ? URL.createObjectURL(this.imageRef.current.files[0]) : '',
     };
+  }
 
-    this.props.addCardForm(newCard);
+  handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const newCardForm = this.createCardForm();
+    this.props.addCardForm(newCardForm);
 
     alert('Your feedback will be added! Thanks');
 
@@ -44,6 +49,7 @@ export default class Form extends Component<FormProps, FormState> {
     return (
       <form
         id='add-card-form'
+        role='form'
         className='form'
         action='/'
         method='post'
@@ -90,26 +96,11 @@ export default class Form extends Component<FormProps, FormState> {
 
         <div className='form__radio'>
           <div className='form__radio-item'>
-            <input
-              className='form__radio-input'
-              type='radio'
-              name='gender'
-              value='female'
-              id='female'
-              ref={this.genderRef}
-              checked
-            />
+            <input className='form__radio-input' type='radio' name='gender' defaultValue='female' defaultChecked />
             <label htmlFor='female'>female</label>
           </div>
           <div className='form__radio-item'>
-            <input
-              className='form__radio-input'
-              type='radio'
-              name='gender'
-              value='male'
-              id='male'
-              ref={this.genderRef}
-            />
+            <input className='form__radio-input' type='radio' name='gender' defaultValue='male' />
             <label htmlFor='male'>male</label>
           </div>
         </div>
@@ -125,6 +116,7 @@ export default class Form extends Component<FormProps, FormState> {
             name='profile'
             accept='image/*,.pdf'
             ref={this.imageRef}
+            required
           ></input>
         </div>
         <div className='form__item'>
@@ -136,6 +128,7 @@ export default class Form extends Component<FormProps, FormState> {
             name='feedback'
             id='feedback'
             ref={this.feedbackTextRef}
+            required
           ></textarea>
         </div>
 
@@ -145,6 +138,7 @@ export default class Form extends Component<FormProps, FormState> {
             type='checkbox'
             id='agree-consent-data'
             ref={this.isConsentRef}
+            required
           ></input>
           <label className='form__label-checkbox' htmlFor='agree-consent-data'>
             I consent to my personal data
