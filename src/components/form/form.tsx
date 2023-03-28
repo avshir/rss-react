@@ -2,13 +2,30 @@ import React, { Component, FormEvent } from 'react';
 
 import './form.scss';
 import { ICardForm } from '../cardForm/cardForm';
+import { FormErrors, errorTextMessage } from './form-utils';
+import { feedbackTextValidate, userNameValidate, dateBirthdayValidate } from './formValidate';
 
 type FormProps = {
   addCardForm: (card: ICardForm) => void;
 };
-type FormState = {};
+type FormState = {
+  errors: FormErrors;
+  success: string;
+};
 
 export default class Form extends Component<FormProps, FormState> {
+  state: FormState = {
+    errors: {
+      userName: '',
+      country: '',
+      birthday: '',
+      feedbackText: '',
+      imageSrc: '',
+      isConsent: '',
+    },
+    success: '',
+  };
+
   private formRef = React.createRef<HTMLFormElement>();
   private userNameRef = React.createRef<HTMLInputElement>();
   private birthdayRef = React.createRef<HTMLInputElement>();
@@ -32,20 +49,62 @@ export default class Form extends Component<FormProps, FormState> {
     };
   }
 
+  validate() {
+    const errors: FormErrors = {
+      userName: userNameValidate(this.userNameRef.current?.value || '') ? '' : errorTextMessage.userName,
+      feedbackText: feedbackTextValidate(this.feedbackTextRef.current?.value || '')
+        ? ''
+        : errorTextMessage.feedbackText,
+      country: this.formRef.current?.['country'].value ? '' : errorTextMessage.country,
+      isConsent: this.formRef.current?.['agree-consent-data'].checked ? '' : errorTextMessage.isConsent,
+      birthday: dateBirthdayValidate(this.formRef.current?.['date-birthday'].value) ? '' : errorTextMessage.birthday,
+      imageSrc: this.imageRef.current?.value ? '' : errorTextMessage.imageSrc,
+    };
+
+    this.setState({ errors: errors });
+
+    const isValid = Object.values(errors).every((elem) => !elem);
+    return isValid;
+  }
+
+  resetErrorsInfo = () => {
+    this.setState({
+      errors: { userName: '', country: '', birthday: '', feedbackText: '', imageSrc: '', isConsent: '' },
+    });
+  };
+
+  showSuccessMessage() {
+    this.setState({ success: 'Your feedback will be added! Thanks' });
+
+    setTimeout(() => {
+      this.setState({ success: '' });
+    }, 3000);
+  }
+
   handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newCardForm = this.createCardForm();
-    this.props.addCardForm(newCardForm);
+    const isValid = this.validate();
 
-    alert('Your feedback will be added! Thanks');
+    if (isValid) {
+      const newCardForm = this.createCardForm();
+      this.props.addCardForm(newCardForm);
 
-    if (this.formRef.current) {
-      this.formRef.current.reset();
+      this.showSuccessMessage();
+
+      if (this.formRef.current) {
+        this.formRef.current.reset();
+      }
     }
   };
 
   render() {
+    const successMessage = this.state.success ? (
+      <div className='form__success-message popup'>
+        <div className='popup__content'>{this.state.success}</div>
+      </div>
+    ) : null;
+
     return (
       <form
         id='add-card-form'
@@ -54,10 +113,12 @@ export default class Form extends Component<FormProps, FormState> {
         action='/'
         method='post'
         onSubmit={this.handleSubmit}
+        onChange={this.resetErrorsInfo}
         ref={this.formRef}
       >
-        <h3 className='form__title'>Add feedback</h3>
+        {successMessage}
 
+        <h3 className='form__title'>Add feedback</h3>
         <div className='form__item'>
           <label className='form__label' htmlFor='userName'>
             Your name
@@ -68,32 +129,30 @@ export default class Form extends Component<FormProps, FormState> {
             placeholder='Name'
             name='userName'
             ref={this.userNameRef}
-            required
           ></input>
+          <span className='form__error'>{this.state.errors.userName}</span>
         </div>
         <div className='form__item'>
           <label className='form__label' htmlFor='date-birthday'>
             Your birthday
           </label>
-          <input className='form__input date' type='date' id='date-birthday' ref={this.birthdayRef} required></input>
+          <input className='form__input date' type='date' name='date-birthday' ref={this.birthdayRef}></input>
+          <span className='form__error'>{this.state.errors.birthday}</span>
         </div>
-
         <div className='form__item'>
           <label className='form__label' htmlFor='country'>
             Where are you from?
           </label>
-          <select className='form__input' name='country' ref={this.countryRef} required>
-            <option value='select-title' disabled>
-              country
-            </option>
+          <select className='form__input' name='country' ref={this.countryRef}>
+            <option value=''>Choose country</option>
             <option value='Belarus'>Belarus</option>
             <option value='Poland'>Poland</option>
             <option value='Lithuania'>Lithuania</option>
             <option value='France'>France</option>
             <option value='Sweden'>Sweden</option>
           </select>
+          <span className='form__error'>{this.state.errors.country}</span>
         </div>
-
         <div className='form__radio'>
           <div className='form__radio-item'>
             <input className='form__radio-input' type='radio' name='gender' defaultValue='female' defaultChecked />
@@ -104,7 +163,6 @@ export default class Form extends Component<FormProps, FormState> {
             <label htmlFor='male'>male</label>
           </div>
         </div>
-
         <div className='form__item'>
           <label className='form__label' htmlFor='profile'>
             Profile picture
@@ -116,8 +174,8 @@ export default class Form extends Component<FormProps, FormState> {
             name='profile'
             accept='image/*,.pdf'
             ref={this.imageRef}
-            required
           ></input>
+          <span className='form__error'>{this.state.errors.imageSrc}</span>
         </div>
         <div className='form__item'>
           <label className='form__label' htmlFor='feedback'>
@@ -128,22 +186,22 @@ export default class Form extends Component<FormProps, FormState> {
             name='feedback'
             id='feedback'
             ref={this.feedbackTextRef}
-            required
           ></textarea>
+          <span className='form__error'>{this.state.errors.feedbackText}</span>
         </div>
 
         <div className='form__item-checkbox'>
           <input
             className='form__input-checkbox'
             type='checkbox'
-            id='agree-consent-data'
+            name='agree-consent-data'
             ref={this.isConsentRef}
-            required
           ></input>
           <label className='form__label-checkbox' htmlFor='agree-consent-data'>
             I consent to my personal data
           </label>
         </div>
+        <span className='form__error'>{this.state.errors.isConsent}</span>
 
         <div className='form__wrapper'>
           <button className='btn' type='submit'>

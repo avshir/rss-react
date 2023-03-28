@@ -1,6 +1,7 @@
 @import '../../scss/constants.scss';
 
 .form {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -67,4 +68,15 @@
     display: flex;
     gap: 5px;
   }
+
+  &__error {
+    color: $error-color;
+  }
+}
+
+.form__success-message {
+  border-radius: $border-radius;
+
+  font-size: 20px;
+  color: $accent2-color;
 }
