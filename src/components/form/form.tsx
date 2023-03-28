@@ -129,6 +129,7 @@ export default class Form extends Component<FormProps, FormState> {
             placeholder='Name'
             name='userName'
             ref={this.userNameRef}
+            role='user-name'
           ></input>
           <span className='form__error'>{this.state.errors.userName}</span>
         </div>
@@ -136,14 +137,20 @@ export default class Form extends Component<FormProps, FormState> {
           <label className='form__label' htmlFor='date-birthday'>
             Your birthday
           </label>
-          <input className='form__input date' type='date' name='date-birthday' ref={this.birthdayRef}></input>
+          <input
+            className='form__input date'
+            type='date'
+            name='date-birthday'
+            ref={this.birthdayRef}
+            role='date-birthday'
+          ></input>
           <span className='form__error'>{this.state.errors.birthday}</span>
         </div>
         <div className='form__item'>
           <label className='form__label' htmlFor='country'>
             Where are you from?
           </label>
-          <select className='form__input' name='country' ref={this.countryRef}>
+          <select className='form__input' name='country' ref={this.countryRef} role='select-country'>
             <option value=''>Choose country</option>
             <option value='Belarus'>Belarus</option>
             <option value='Poland'>Poland</option>
@@ -170,10 +177,10 @@ export default class Form extends Component<FormProps, FormState> {
           <input
             className='form__input user-image'
             type='file'
-            id='profile'
             name='profile'
             accept='image/*,.pdf'
             ref={this.imageRef}
+            role='profile'
           ></input>
           <span className='form__error'>{this.state.errors.imageSrc}</span>
         </div>
@@ -181,12 +188,7 @@ export default class Form extends Component<FormProps, FormState> {
           <label className='form__label' htmlFor='feedback'>
             Your feedback
           </label>
-          <textarea
-            className='form__input form__textarea'
-            name='feedback'
-            id='feedback'
-            ref={this.feedbackTextRef}
-          ></textarea>
+          <textarea className='form__input form__textarea' name='feedback' ref={this.feedbackTextRef}></textarea>
           <span className='form__error'>{this.state.errors.feedbackText}</span>
         </div>
 
