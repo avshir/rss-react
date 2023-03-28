@@ -1,0 +1,28 @@
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+import './header.scss';
+
+export default class Header extends Component<{}, {}> {
+  render() {
+    return (
+      <header className='header'>
+        <nav className='container'>
+          <ul className='nav-menu'>
+            <li>
+              <Link className='link' to='/'>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to='/about'>About</Link>
+            </li>
+            <li>
+              <Link to='/form'>Form</Link>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    );
+  }
+}

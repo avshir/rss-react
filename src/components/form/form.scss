@@ -1,0 +1,82 @@
+@import '../../scss/constants.scss';
+
+.form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 95%;
+  max-width: 340px;
+
+  background-color: $light-color-2;
+  border-radius: $border-radius;
+  padding: 20px;
+  margin: 0 auto 20px;
+
+  &__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: $accent1-color;
+    text-align: center;
+  }
+
+  &__item {
+    width: 100%;
+    text-align: left;
+  }
+
+  &__item-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px 0;
+  }
+
+  &__input {
+    width: 100%;
+    height: 30px;
+  }
+
+  &__textarea {
+    height: 60px;
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  &__label {
+    font-size: 14px;
+    color: $gray-color;
+  }
+
+  &__label-checkbox {
+    color: $accent1-color;
+    font-weight: 700;
+  }
+
+  &__radio {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    margin: 0 auto;
+  }
+
+  &__radio-item {
+    display: flex;
+    gap: 5px;
+  }
+
+  &__error {
+    color: $error-color;
+  }
+}
+
+.form__success-message {
+  border-radius: $border-radius;
+
+  font-size: 20px;
+  color: $accent2-color;
+}
