@@ -15,7 +15,7 @@ export default class HomePage extends Component<HomePageProps, HomePageState> {
 
     return (
       <div className='home-page container '>
-        <h2 className='title'>HomePage</h2>
+        <h2 className='page__title'>HomePage</h2>
         <SearchPanel />
         <CardList products={products} />
       </div>

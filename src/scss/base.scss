@@ -50,6 +50,11 @@ a:active {
   right: 0;
   left: 0;
   color: $accent3-color;
+  pointer-events: none;
+
+  @media (max-width: 640px) {
+    right: auto;
+  }
 }
 
 .btn {

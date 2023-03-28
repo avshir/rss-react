@@ -5,7 +5,7 @@
   flex-direction: column;
   background-color: $light-color-1;
   border-radius: 5px;
-  padding: 5px;
+  padding: 15px;
   overflow: hidden;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .card__consent-data {
-  font-size: 14px;
+  font-size: 13px;
 }
 .card__consent-data span {
   color: $accent2-color;
