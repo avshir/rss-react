@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 import Form from './form';
 
@@ -23,6 +23,19 @@ describe('test Form component', () => {
       />
     );
     expect(screen.getByRole('user-name')).toBeInTheDocument();
+  });
+
+  test('value of input type="text" field "userName" changes by user', () => {
+    render(
+      <Form
+        addCardForm={() => {
+          throw new Error();
+        }}
+      />
+    );
+    const input = screen.getByRole('user-name') as HTMLInputElement;
+    fireEvent.change(input, { target: { value: 'Anna' } });
+    expect(input.value).toBe('Anna');
   });
 
   test('should contain input type="date" field "date-birthday"', () => {
