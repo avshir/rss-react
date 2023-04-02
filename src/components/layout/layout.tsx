@@ -1,18 +1,20 @@
-import { Component } from 'react';
+import React, { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Header from '../header';
 
-export default class Layout extends Component {
-  render() {
-    return (
-      <>
-        <Header />
+const Layout: FC = () => {
+  return (
+    <>
+      <Header />
 
-        <main className='container main'>
+      <main className='main'>
+        <div className='container'>
           <Outlet />
-        </main>
-      </>
-    );
-  }
-}
+        </div>
+      </main>
+    </>
+  );
+};
+
+export default Layout;
