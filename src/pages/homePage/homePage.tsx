@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { FC } from 'react';
 
 import './homePage.scss';
 import { dataGoods } from '../../data/data';
@@ -6,19 +6,16 @@ import { IProduct } from '../../components/types';
 import CardList from '../../components/cards-list';
 import SearchPanel from '../../components/search-panel';
 
-type HomePageProps = {};
-type HomePageState = {};
+const HomePage: FC = () => {
+  const products: IProduct[] = dataGoods.products.slice(0, 8); //get only 8 products
 
-export default class HomePage extends Component<HomePageProps, HomePageState> {
-  render() {
-    const products: IProduct[] = dataGoods.products;
+  return (
+    <div className='home-page container'>
+      <h2 className='page__title'>HomePage</h2>
+      <SearchPanel />
+      <CardList products={products} />
+    </div>
+  );
+};
 
-    return (
-      <div className='home-page container '>
-        <h2 className='page__title'>HomePage</h2>
-        <SearchPanel />
-        <CardList products={products} />
-      </div>
-    );
-  }
-}
+export default HomePage;
