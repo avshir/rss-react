@@ -1,18 +1,24 @@
-import React, { FC, ChangeEvent, useState, useEffect } from 'react';
+import React, { FC, ChangeEvent, useState, useEffect, useRef } from 'react';
 
 import './search-panel.scss';
 
 const SearchPanel: FC = () => {
   const initSearchValue: string = localStorage.getItem('searchValue') || '';
   const [searchValue, setSearchValue] = useState(initSearchValue);
+  const searchRef = useRef<string>(searchValue);
 
   useEffect(() => {
-    localStorage.setItem('searchValue', searchValue);
-  }, [searchValue]);
+    //like componentWillUnmount
+    return function saveToLS() {
+      const currentSearchValue = searchRef?.current || '';
+      localStorage.setItem('searchValue', currentSearchValue);
+    };
+  }, []);
 
   const onSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const newSearchValue = e.target.value.trimStart();
     setSearchValue(newSearchValue);
+    searchRef.current = newSearchValue;
   };
 
   const searchText = 'Type here to search...';
