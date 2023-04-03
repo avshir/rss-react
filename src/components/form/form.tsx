@@ -1,68 +1,33 @@
-import React, { FC, useState, useRef, FormEvent } from 'react';
+import React, { FC, useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import './form.scss';
 import { ICardForm } from '../cardForm/cardForm';
-import { FormErrors, errorTextMessage } from './form-utils';
-import { feedbackTextValidate, userNameValidate, dateBirthdayValidate } from './formValidate';
+import { errorTextMessage } from './form-utils';
 
 type FormProps = {
   addCardForm: (card: ICardForm) => void;
 };
 
+type FormValues = {
+  userName: string;
+  country: string;
+  birthday: string;
+  feedbackText: string;
+  image: FileList;
+  isConsentPersonalData: boolean;
+  gender: string;
+};
+
 const Form: FC<FormProps> = (props: FormProps) => {
-  const [errors, setErrors] = useState<FormErrors>({
-    userName: '',
-    country: '',
-    birthday: '',
-    feedbackText: '',
-    imageSrc: '',
-    isConsent: '',
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormValues>();
+
   const [success, setSuccess] = useState('');
-
-  const formRef = useRef<HTMLFormElement>(null);
-  const userNameRef = useRef<HTMLInputElement>(null);
-  const birthdayRef = useRef<HTMLInputElement>(null);
-  const countryRef = useRef<HTMLSelectElement>(null);
-  const feedbackTextRef = useRef<HTMLTextAreaElement>(null);
-  const isConsentRef = useRef<HTMLInputElement>(null);
-  const imageRef = useRef<HTMLInputElement>(null);
-
-  const createCardForm = (): ICardForm => {
-    const genderArr: HTMLInputElement[] = [...formRef.current?.['gender']];
-    const gender = (genderArr.find((el) => el.checked) as HTMLInputElement).value;
-
-    return {
-      userName: userNameRef.current?.value || '',
-      gender: gender || '',
-      birthday: birthdayRef.current?.value || '',
-      country: countryRef.current?.value || '',
-      feedbackText: feedbackTextRef.current?.value || '',
-      isConsentPersonalData: isConsentRef.current?.checked,
-      imageSrc: imageRef.current?.files ? URL.createObjectURL(imageRef.current.files[0]) : '',
-    };
-  };
-
-  const validate = (): boolean => {
-    const newErrors: FormErrors = {
-      userName: userNameValidate(userNameRef.current?.value || '') ? '' : errorTextMessage.userName,
-      feedbackText: feedbackTextValidate(feedbackTextRef.current?.value || '') ? '' : errorTextMessage.feedbackText,
-      country: formRef.current?.['country'].value ? '' : errorTextMessage.country,
-      isConsent: formRef.current?.['agree-consent-data'].checked ? '' : errorTextMessage.isConsent,
-      birthday: dateBirthdayValidate(formRef.current?.['date-birthday'].value) ? '' : errorTextMessage.birthday,
-      imageSrc: imageRef.current?.value ? '' : errorTextMessage.imageSrc,
-    };
-
-    setErrors(newErrors);
-
-    const isValid = Object.values(newErrors).every((elem) => !elem);
-    return isValid;
-  };
-
-  const resetErrorsInfo = () => {
-    const clearErrors = { userName: '', country: '', birthday: '', feedbackText: '', imageSrc: '', isConsent: '' };
-    setErrors(clearErrors);
-  };
 
   const showSuccessMessage = () => {
     setSuccess('Your feedback will be added! Thanks');
@@ -72,21 +37,15 @@ const Form: FC<FormProps> = (props: FormProps) => {
     }, 3000);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const { image, ...dataLast } = data;
+    const imageSrc: string = URL.createObjectURL(image[0]);
+    const newCardForm: ICardForm = { imageSrc, ...dataLast };
 
-    const isValid = validate();
+    props.addCardForm(newCardForm);
 
-    if (isValid) {
-      const newCardForm = createCardForm();
-      props.addCardForm(newCardForm);
-
-      showSuccessMessage();
-
-      if (formRef.current) {
-        formRef.current.reset();
-      }
-    }
+    showSuccessMessage();
+    reset();
   };
 
   const successMessage = success ? (
@@ -96,16 +55,7 @@ const Form: FC<FormProps> = (props: FormProps) => {
   ) : null;
 
   return (
-    <form
-      id='add-card-form'
-      role='form'
-      className='form'
-      action='/'
-      method='post'
-      onSubmit={handleSubmit}
-      onChange={resetErrorsInfo}
-      ref={formRef}
-    >
+    <form id='add-card-form' role='form' className='form' action='/' method='post' onSubmit={handleSubmit(onSubmit)}>
       {successMessage}
 
       <h3 className='form__title'>Add feedback</h3>
@@ -117,30 +67,30 @@ const Form: FC<FormProps> = (props: FormProps) => {
           className='form__input user-name'
           type='text'
           placeholder='Name'
-          name='userName'
-          ref={userNameRef}
+          {...register('userName', { required: true, minLength: 3, maxLength: 20 })}
           role='user-name'
         ></input>
-        <span className='form__error'>{errors.userName}</span>
+        {errors.userName && <span className='form__error'>{errorTextMessage.userName}</span>}
       </div>
+
       <div className='form__item'>
-        <label className='form__label' htmlFor='date-birthday'>
+        <label className='form__label' htmlFor='birthday'>
           Your birthday
         </label>
         <input
           className='form__input date'
           type='date'
-          name='date-birthday'
-          ref={birthdayRef}
+          {...register('birthday', { required: true })}
           role='date-birthday'
         ></input>
-        <span className='form__error'>{errors.birthday}</span>
+        {errors.birthday && <span className='form__error'>{errorTextMessage.birthday}</span>}
       </div>
+
       <div className='form__item'>
         <label className='form__label' htmlFor='country'>
           Where are you from?
         </label>
-        <select className='form__input' name='country' ref={countryRef} role='select-country'>
+        <select className='form__input' {...register('country', { required: true })} role='select-country'>
           <option value=''>Choose country</option>
           <option value='Belarus'>Belarus</option>
           <option value='Poland'>Poland</option>
@@ -148,47 +98,62 @@ const Form: FC<FormProps> = (props: FormProps) => {
           <option value='France'>France</option>
           <option value='Sweden'>Sweden</option>
         </select>
-        <span className='form__error'>{errors.country}</span>
+        {errors.country && <span className='form__error'>{errorTextMessage.country}</span>}
       </div>
+
       <div className='form__radio'>
         <div className='form__radio-item'>
-          <input className='form__radio-input' type='radio' name='gender' defaultValue='female' defaultChecked />
+          <input
+            className='form__radio-input'
+            type='radio'
+            defaultValue='female'
+            defaultChecked
+            {...register('gender')}
+          />
           <label htmlFor='female'>female</label>
         </div>
         <div className='form__radio-item'>
-          <input className='form__radio-input' type='radio' name='gender' defaultValue='male' />
+          <input className='form__radio-input' type='radio' defaultValue='male' {...register('gender')} />
           <label htmlFor='male'>male</label>
         </div>
       </div>
+
       <div className='form__item'>
-        <label className='form__label' htmlFor='profile'>
+        <label className='form__label' htmlFor='image'>
           Profile picture
         </label>
         <input
           className='form__input user-image'
           type='file'
-          name='profile'
           accept='image/*,.pdf'
-          ref={imageRef}
+          {...register('image', { required: true })}
           role='profile'
         ></input>
-        <span className='form__error'>{errors.imageSrc}</span>
+        {errors.image && <span className='form__error'>{errorTextMessage.imageSrc}</span>}
       </div>
+
       <div className='form__item'>
-        <label className='form__label' htmlFor='feedback'>
+        <label className='form__label' htmlFor='feedbackText'>
           Your feedback
         </label>
-        <textarea className='form__input form__textarea' name='feedback' ref={feedbackTextRef}></textarea>
-        <span className='form__error'>{errors.feedbackText}</span>
+        <textarea
+          className='form__input form__textarea'
+          {...register('feedbackText', { required: true, minLength: 5, maxLength: 50 })}
+        ></textarea>
+        {errors.feedbackText && <span className='form__error'>{errorTextMessage.feedbackText}</span>}
       </div>
 
       <div className='form__item-checkbox'>
-        <input className='form__input-checkbox' type='checkbox' name='agree-consent-data' ref={isConsentRef}></input>
-        <label className='form__label-checkbox' htmlFor='agree-consent-data'>
+        <input
+          className='form__input-checkbox'
+          type='checkbox'
+          {...register('isConsentPersonalData', { required: true })}
+        ></input>
+        <label className='form__label-checkbox' htmlFor='isConsentPersonalData'>
           I consent to my personal data
         </label>
       </div>
-      <span className='form__error'>{errors.isConsent}</span>
+      {errors.isConsentPersonalData && <span className='form__error'>{errorTextMessage.isConsent}</span>}
 
       <div className='form__wrapper'>
         <button className='btn' type='submit'>
