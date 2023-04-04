@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { FC, useState } from 'react';
 
 import './formPage.scss';
 
@@ -6,32 +6,22 @@ import Form from '../../components/form';
 import { ICardForm } from '../../components/cardForm/cardForm';
 import CardFormList from '../../components/cardForm-list';
 
-type FormPageProps = {};
-type FormPageState = {
-  cardsForm: ICardForm[];
-};
+const FormPage: FC = () => {
+  let cardId = 1;
+  const [cardsForm, setCardsForm] = useState<ICardForm[]>([]);
 
-export default class FormPage extends Component<FormPageProps, FormPageState> {
-  cardId = 1;
+  const addCardForm = (card: ICardForm): void => {
+    const newCard = createCard(card);
 
-  state = {
-    cardsForm: [],
-  };
-
-  addCardForm = (card: ICardForm): void => {
-    const newCard = this.createCard(card);
-
-    this.setState(({ cardsForm }) => {
-      const newArr = [...cardsForm];
+    setCardsForm((prevCardsForm) => {
+      const newArr = [...prevCardsForm];
       newArr.push(newCard);
 
-      return {
-        cardsForm: newArr,
-      };
+      return newArr;
     });
   };
 
-  createCard(cardData: ICardForm) {
+  const createCard = (cardData: ICardForm) => {
     const { userName, gender, birthday, country, isConsentPersonalData, feedbackText, imageSrc } = cardData;
 
     return {
@@ -42,19 +32,17 @@ export default class FormPage extends Component<FormPageProps, FormPageState> {
       isConsentPersonalData,
       feedbackText,
       imageSrc,
-      id: this.cardId++,
+      id: cardId++,
     };
-  }
+  };
 
-  render() {
-    const { cardsForm } = this.state;
+  return (
+    <div className='form-page container' role='form-page'>
+      <h2 className='page__title'>Form page</h2>
+      <Form addCardForm={addCardForm} />
+      <CardFormList cardsForm={cardsForm} />
+    </div>
+  );
+};
 
-    return (
-      <div className='form-page container' role='form-page'>
-        <h2 className='page__title'>Form page</h2>
-        <Form addCardForm={this.addCardForm} />
-        <CardFormList cardsForm={cardsForm} />
-      </div>
-    );
-  }
-}
+export default FormPage;
