@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './cards-list.scss';
 
@@ -8,10 +8,9 @@ import { IProduct } from '../types';
 type CardListProps = {
   products: IProduct[];
 };
-type CardListState = {};
 
-export default class CardList extends Component<CardListProps, CardListState> {
-  cards = this.props.products.slice(0, 8).map((product) => {
+const CardList = ({ products }: CardListProps) => {
+  const cards = products.map((product) => {
     const { id } = product;
 
     return (
@@ -21,11 +20,11 @@ export default class CardList extends Component<CardListProps, CardListState> {
     );
   });
 
-  render() {
-    return (
-      <ul className='cards-list' data-testid='cards-list'>
-        {this.cards}
-      </ul>
-    );
-  }
-}
+  return (
+    <ul className='cards-list' data-testid='cards-list'>
+      {cards}
+    </ul>
+  );
+};
+
+export default CardList;

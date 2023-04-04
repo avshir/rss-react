@@ -116,16 +116,16 @@
   top: 24px;
   background: #e7e9fe;
   background: $accent2-color;
-  color: $accent3-color;
+  color: $text-color-light;
   padding: 8px 16px;
 }
 
-.topLeft {
+.top-left {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
-.topRight {
+.top-right {
   right: 0;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
