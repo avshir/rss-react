@@ -101,7 +101,7 @@ describe('test Form component', () => {
         }}
       />
     );
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
+    expect(screen.getByRole('textarea')).toBeInTheDocument();
   });
 
   test('should contain 1 input type="checkbox" name="agree-consent-data"', () => {

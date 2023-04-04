@@ -25,7 +25,7 @@ const Form: FC<FormProps> = (props: FormProps) => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({ mode: 'onSubmit' });
 
   const [success, setSuccess] = useState('');
 
@@ -137,6 +137,7 @@ const Form: FC<FormProps> = (props: FormProps) => {
           Your feedback
         </label>
         <textarea
+          role='textarea'
           className='form__input form__textarea'
           {...register('feedbackText', { required: true, minLength: 5, maxLength: 50 })}
         ></textarea>
