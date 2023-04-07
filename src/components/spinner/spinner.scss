@@ -1,0 +1,228 @@
+.spinner__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  padding: 20px;
+}
+
+@keyframes ldio-vvilw6h75t9 {
+  0% {
+    opacity: 1;
+    backface-visibility: hidden;
+    transform: translateZ(0) scale(1.5, 1.5);
+  }
+  100% {
+    opacity: 0;
+    backface-visibility: hidden;
+    transform: translateZ(0) scale(1, 1);
+  }
+}
+.ldio-vvilw6h75t9 div > div {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #5f2a62;
+  animation: ldio-vvilw6h75t9 1s linear infinite;
+}
+.ldio-vvilw6h75t9 div:nth-child(1) > div {
+  left: 150px;
+  top: 90px;
+  animation-delay: -0.95s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(1) {
+  transform: rotate(0deg);
+  transform-origin: 160px 100px;
+}
+.ldio-vvilw6h75t9 div:nth-child(2) > div {
+  left: 147px;
+  top: 109px;
+  animation-delay: -0.9s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(2) {
+  transform: rotate(18deg);
+  transform-origin: 157px 119px;
+}
+.ldio-vvilw6h75t9 div:nth-child(3) > div {
+  left: 139px;
+  top: 125px;
+  animation-delay: -0.85s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(3) {
+  transform: rotate(36deg);
+  transform-origin: 149px 135px;
+}
+.ldio-vvilw6h75t9 div:nth-child(4) > div {
+  left: 125px;
+  top: 139px;
+  animation-delay: -0.8s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(4) {
+  transform: rotate(54deg);
+  transform-origin: 135px 149px;
+}
+.ldio-vvilw6h75t9 div:nth-child(5) > div {
+  left: 109px;
+  top: 147px;
+  animation-delay: -0.75s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(5) {
+  transform: rotate(72deg);
+  transform-origin: 119px 157px;
+}
+.ldio-vvilw6h75t9 div:nth-child(6) > div {
+  left: 90px;
+  top: 150px;
+  animation-delay: -0.7s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(6) {
+  transform: rotate(90deg);
+  transform-origin: 100px 160px;
+}
+.ldio-vvilw6h75t9 div:nth-child(7) > div {
+  left: 71px;
+  top: 147px;
+  animation-delay: -0.65s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(7) {
+  transform: rotate(108deg);
+  transform-origin: 81px 157px;
+}
+.ldio-vvilw6h75t9 div:nth-child(8) > div {
+  left: 55px;
+  top: 139px;
+  animation-delay: -0.6s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(8) {
+  transform: rotate(126deg);
+  transform-origin: 65px 149px;
+}
+.ldio-vvilw6h75t9 div:nth-child(9) > div {
+  left: 41px;
+  top: 125px;
+  animation-delay: -0.55s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(9) {
+  transform: rotate(144deg);
+  transform-origin: 51px 135px;
+}
+.ldio-vvilw6h75t9 div:nth-child(10) > div {
+  left: 33px;
+  top: 109px;
+  animation-delay: -0.5s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(10) {
+  transform: rotate(162deg);
+  transform-origin: 43px 119px;
+}
+.ldio-vvilw6h75t9 div:nth-child(11) > div {
+  left: 30px;
+  top: 90px;
+  animation-delay: -0.45s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(11) {
+  transform: rotate(180deg);
+  transform-origin: 40px 100px;
+}
+.ldio-vvilw6h75t9 div:nth-child(12) > div {
+  left: 33px;
+  top: 71px;
+  animation-delay: -0.4s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(12) {
+  transform: rotate(198deg);
+  transform-origin: 43px 81px;
+}
+.ldio-vvilw6h75t9 div:nth-child(13) > div {
+  left: 41px;
+  top: 55px;
+  animation-delay: -0.35s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(13) {
+  transform: rotate(216deg);
+  transform-origin: 51px 65px;
+}
+.ldio-vvilw6h75t9 div:nth-child(14) > div {
+  left: 55px;
+  top: 41px;
+  animation-delay: -0.3s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(14) {
+  transform: rotate(234deg);
+  transform-origin: 65px 51px;
+}
+.ldio-vvilw6h75t9 div:nth-child(15) > div {
+  left: 71px;
+  top: 33px;
+  animation-delay: -0.25s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(15) {
+  transform: rotate(252deg);
+  transform-origin: 81px 43px;
+}
+.ldio-vvilw6h75t9 div:nth-child(16) > div {
+  left: 90px;
+  top: 30px;
+  animation-delay: -0.2s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(16) {
+  transform: rotate(270deg);
+  transform-origin: 100px 40px;
+}
+.ldio-vvilw6h75t9 div:nth-child(17) > div {
+  left: 109px;
+  top: 33px;
+  animation-delay: -0.15s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(17) {
+  transform: rotate(288deg);
+  transform-origin: 119px 43px;
+}
+.ldio-vvilw6h75t9 div:nth-child(18) > div {
+  left: 125px;
+  top: 41px;
+  animation-delay: -0.1s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(18) {
+  transform: rotate(306deg);
+  transform-origin: 135px 51px;
+}
+.ldio-vvilw6h75t9 div:nth-child(19) > div {
+  left: 139px;
+  top: 55px;
+  animation-delay: -0.05s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(19) {
+  transform: rotate(324deg);
+  transform-origin: 149px 65px;
+}
+.ldio-vvilw6h75t9 div:nth-child(20) > div {
+  left: 147px;
+  top: 71px;
+  animation-delay: 0s;
+}
+.ldio-vvilw6h75t9 > div:nth-child(20) {
+  transform: rotate(342deg);
+  transform-origin: 157px 81px;
+}
+.loadingio-spinner-spin-lw0dq5kmlqd {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  overflow: hidden;
+  background: none;
+}
+.ldio-vvilw6h75t9 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-vvilw6h75t9 div {
+  box-sizing: content-box;
+}
+
+/* generated by https://loading.io/ */
