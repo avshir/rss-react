@@ -1,8 +1,12 @@
-import React, { FC, ChangeEvent, useState, useEffect, useRef } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useState, useEffect, useRef } from 'react';
 
 import './search-panel.scss';
 
-const SearchPanel: FC = () => {
+type SearchPanelProps = {
+  updateSearchValue: (searchValue: string) => void;
+};
+
+const SearchPanel = ({ updateSearchValue }: SearchPanelProps) => {
   const initSearchValue: string = localStorage.getItem('searchValue') || '';
   const [searchValue, setSearchValue] = useState(initSearchValue);
   const searchRef = useRef<string>(searchValue);
@@ -10,8 +14,7 @@ const SearchPanel: FC = () => {
   useEffect(() => {
     //like componentWillUnmount
     return function saveToLS() {
-      const currentSearchValue = searchRef?.current || '';
-      localStorage.setItem('searchValue', currentSearchValue);
+      localStorage.setItem('searchValue', searchRef.current);
     };
   }, []);
 
@@ -21,7 +24,13 @@ const SearchPanel: FC = () => {
     searchRef.current = newSearchValue;
   };
 
-  const searchText = 'Type here to search...';
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') {
+      updateSearchValue(searchValue);
+    }
+  };
+
+  const searchText = 'Type here to search and press Enter...';
 
   return (
     <input
@@ -30,6 +39,7 @@ const SearchPanel: FC = () => {
       placeholder={searchText}
       value={searchValue}
       onChange={(e) => onSearchChange(e)}
+      onKeyDown={handleKeyDown}
       role='search-input'
     />
   );
