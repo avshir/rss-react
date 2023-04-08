@@ -3,3 +3,9 @@
   padding: 30px 0;
   text-align: center;
 }
+
+.movies__container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
