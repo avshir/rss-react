@@ -1,0 +1,44 @@
+@import '../../scss/constants.scss';
+
+.modal {
+  position: fixed;
+  z-index: 10;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  &__content {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    max-width: 440px;
+    border-radius: $border-radius-big;
+    background-color: $light-color-2;
+    color: $text-color;
+    padding: 30px 22px;
+    text-align: center;
+
+    @media (max-width: 480px) {
+      width: 90%;
+      padding: 22px 18px;
+    }
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+  }
+
+  p,
+  li {
+    text-align: left;
+    margin: 0 0 5px 0;
+  }
+}
