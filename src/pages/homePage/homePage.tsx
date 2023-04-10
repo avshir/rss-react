@@ -7,6 +7,8 @@ import SearchPanel from '../../components/search-panel';
 import { getTrendingMovies } from '../../services/movies-services';
 import Spinner from '../../components/spinner';
 import ErrorIndicator from '../../components/errorIndicator';
+import Modal from '../../components/modal';
+import DetailInfo from '../../components/detailInfo';
 
 const HomePage: FC = () => {
   const initSearchValue: string = localStorage.getItem('searchValue') || '';
@@ -14,6 +16,8 @@ const HomePage: FC = () => {
   const [trendingMovies, setTrendingMovies] = useState<IMovie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [detailInfo, setDetailInfo] = useState<string[]>([]);
 
   const onError = () => {
     setError(true);
@@ -25,7 +29,6 @@ const HomePage: FC = () => {
       .then((trendingMovies) => {
         setTrendingMovies(trendingMovies);
         setLoading(false);
-        // console.log('useEffect: trendingMovies', trendingMovies);
       })
       .catch(onError);
   }, []);
@@ -44,20 +47,31 @@ const HomePage: FC = () => {
     }
   };
 
+  const showDetailInfo = (info: string[]) => {
+    setDetailInfo(info);
+  };
+
   const hasData = !(loading || error);
   const errorMessage = error ? <ErrorIndicator /> : null;
   const spinner = loading ? <Spinner /> : null;
 
   const searchedMovies = search(trendingMovies, searchValue);
-  const content = hasData ? <CardList items={searchedMovies} /> : null;
+  const content = hasData ? (
+    <CardList items={searchedMovies} setIsModalOpen={setIsModalOpen} showDetailInfo={showDetailInfo} />
+  ) : null;
 
   return (
-    <div className='home-page container'>
+    <div className='home-page container' data-testid='apiCall' role='home-page'>
       <h2 className='page__title'>HomePage</h2>
       <SearchPanel updateSearchValue={updateSearchValue} />
       {spinner}
       {errorMessage}
       {content}
+      {isModalOpen && (
+        <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
+          <DetailInfo info={detailInfo} />
+        </Modal>
+      )}
     </div>
   );
 };
