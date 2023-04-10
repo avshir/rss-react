@@ -72,6 +72,18 @@ a:active {
   }
 }
 
+.btn--round {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  line-height: 1;
+  font-size: 14px;
+}
+
 .btn--cart {
   min-width: auto;
   width: 30px;

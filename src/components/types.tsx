@@ -28,7 +28,7 @@ export interface IMovie {
   media_type?: string;
   original_language?: string;
   original_title: string;
-  overview?: string;
+  overview: string;
   popularity?: number;
   poster_path: string | null;
   release_date: string;

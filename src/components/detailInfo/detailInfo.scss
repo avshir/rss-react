@@ -1,0 +1,17 @@
+@import '../../scss/constants.scss';
+
+.detail-info {
+  &__title {
+    font-size: 20px;
+    font-weight: 700;
+    color: $accent1-color;
+    margin: 0 0 10px;
+  }
+
+  &__subtitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: $gray-color;
+    margin: 0 0 10px;
+  }
+}
