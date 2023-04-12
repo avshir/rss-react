@@ -4,7 +4,7 @@ import './homePage.scss';
 import { IMovie } from '../../components/types';
 import CardList from '../../components/cards-list';
 import SearchPanel from '../../components/search-panel';
-import { getMovieById, getTrendingMovies } from '../../services/movies-services';
+import { getMovieById, getMoviesBySearch, getTrendingMovies } from '../../services/movies-services';
 import Spinner from '../../components/spinner';
 import ErrorIndicator from '../../components/errorIndicator';
 import Modal from '../../components/modal';
@@ -14,6 +14,7 @@ const HomePage: FC = () => {
   const initSearchValue: string = localStorage.getItem('searchValue') || '';
   const [searchValue, setSearchValue] = useState<string>(initSearchValue);
   const [trendingMovies, setTrendingMovies] = useState<IMovie[]>([]);
+  const [movies, setMovies] = useState<IMovie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -34,18 +35,19 @@ const HomePage: FC = () => {
       .catch(onError);
   }, []);
 
+  useEffect(() => {
+    if (searchValue !== '') {
+      getMoviesBySearch(searchValue)
+        .then((movies) => {
+          setMovies(movies);
+          setLoading(false);
+        })
+        .catch(onError);
+    }
+  }, [searchValue]);
+
   const updateSearchValue = (newValue: string) => {
     setSearchValue(newValue);
-  };
-
-  const search = (arr: IMovie[], searchElem: string) => {
-    if (searchElem === '') {
-      return arr;
-    } else {
-      const filteredArr = arr.filter((el) => el.title.toLowerCase().search(searchElem.toLowerCase()) !== -1);
-
-      return filteredArr;
-    }
   };
 
   function showDetailInfo(id: number) {
@@ -68,7 +70,7 @@ const HomePage: FC = () => {
   const errorMessage = error ? <ErrorIndicator /> : null;
   const spinner = loading ? <Spinner /> : null;
 
-  const searchedMovies = search(trendingMovies, searchValue);
+  const searchedMovies = searchValue !== '' ? movies : trendingMovies;
   const content = hasData ? (
     <CardList items={searchedMovies} setIsModalOpen={setIsModalOpen} showDetailInfo={showDetailInfo} />
   ) : null;
