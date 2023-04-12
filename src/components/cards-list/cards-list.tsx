@@ -8,7 +8,7 @@ import { IMovie } from '../types';
 type CardListProps = {
   items: IMovie[];
   setIsModalOpen: (newValue: boolean) => void;
-  showDetailInfo: (info: string[]) => void;
+  showDetailInfo: (id: number) => void;
 };
 
 const CardList = ({ items, setIsModalOpen, showDetailInfo }: CardListProps) => {

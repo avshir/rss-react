@@ -19,3 +19,9 @@ export const getTrendingMovies = async (time: 'week' | 'day'): Promise<IMovie[]>
   const trendingMovies: IMovie[] = res.results;
   return trendingMovies;
 };
+
+export const getMovieById = async (movie_id: number): Promise<IMovie> => {
+  const res = await getResource(`/movie/${movie_id}`);
+  const movie: IMovie = res;
+  return movie;
+};

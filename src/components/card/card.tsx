@@ -7,17 +7,17 @@ import { _baseImagePath } from '../../services/movies-services';
 type CardProps = {
   item: IMovie;
   setIsModalOpen: (newValue: boolean) => void;
-  showDetailInfo: (info: string[]) => void;
+  showDetailInfo: (id: number) => void;
 };
 
 const Card = ({ item, setIsModalOpen, showDetailInfo }: CardProps) => {
-  const { title, original_title, poster_path, vote_average, release_date, overview } = item;
+  const { id, title, original_title, poster_path, vote_average, release_date } = item;
   const baseImagePath = _baseImagePath;
   const yearRelease: string = release_date.slice(0, 4);
 
   const showMoreInfo = () => {
     setIsModalOpen(true);
-    showDetailInfo([overview, title]);
+    showDetailInfo(id);
   };
 
   return (
