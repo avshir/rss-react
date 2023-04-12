@@ -18,7 +18,7 @@ const Modal = ({ setIsModalOpen, children }: ModalProps) => {
   };
 
   return (
-    <div className='modal' onClick={closeModal}>
+    <div className='modal' onClick={closeModal} data-testid='modal'>
       <div className='modal__content' onClick={unCloseModal}>
         <div className='modal__close-btn btn btn--round' onClick={closeModal}>
           X

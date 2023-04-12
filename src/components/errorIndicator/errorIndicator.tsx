@@ -4,7 +4,7 @@ import './errorIndicator.scss';
 
 const ErrorIndicator = () => {
   return (
-    <div className='error-indicator'>
+    <div className='error-indicator' data-testid='error-indicator'>
       <span className='error-indicator__title'>Ups!</span>
       <span>something has gone wrong...</span>
     </div>

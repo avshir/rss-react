@@ -11,7 +11,7 @@ const DetailInfo = ({ info }: DetailInfoProps) => {
   const { overview, title, homepage } = info!;
 
   return (
-    <div className='detail-info'>
+    <div className='detail-info' data-testid='detail-info'>
       <h3 className='detail-info__title'>{title}</h3>
       <div className='detail-info__subtitle'>overview</div>
       <p>{overview}</p>
