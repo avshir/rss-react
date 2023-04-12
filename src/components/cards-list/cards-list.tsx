@@ -3,19 +3,21 @@ import React from 'react';
 import './cards-list.scss';
 
 import Card from '../card';
-import { IProduct } from '../types';
+import { IMovie } from '../types';
 
 type CardListProps = {
-  products: IProduct[];
+  items: IMovie[];
+  setIsModalOpen: (newValue: boolean) => void;
+  showDetailInfo: (id: number) => void;
 };
 
-const CardList = ({ products }: CardListProps) => {
-  const cards = products.map((product) => {
-    const { id } = product;
+const CardList = ({ items, setIsModalOpen, showDetailInfo }: CardListProps) => {
+  const cards = items.map((item) => {
+    const { id } = item;
 
     return (
       <li key={id} className='cards-list__item'>
-        <Card product={product} />
+        <Card item={item} setIsModalOpen={setIsModalOpen} showDetailInfo={showDetailInfo} />
       </li>
     );
   });

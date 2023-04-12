@@ -1,0 +1,15 @@
+@import '../../scss/constants.scss';
+
+.error-indicator {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $accent1-color;
+  padding: 40px;
+}
+
+.error-indicator__title {
+  font-weight: 700;
+  font-size: 1.8rem;
+}

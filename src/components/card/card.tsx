@@ -1,28 +1,42 @@
 import React from 'react';
 
 import './card.scss';
-import { IProduct } from '../types';
+import { IMovie } from '../types';
+import { _baseImagePath } from '../../services/movies-services';
 
-type CardProps = { product: IProduct };
+type CardProps = {
+  item: IMovie;
+  setIsModalOpen: (newValue: boolean) => void;
+  showDetailInfo: (id: number) => void;
+};
 
-const Card = (props: CardProps) => {
-  const { product } = props;
-  const { title, brand, images, price } = product;
+const Card = ({ item, setIsModalOpen, showDetailInfo }: CardProps) => {
+  const { id, title, original_title, poster_path, vote_average, release_date } = item;
+  const baseImagePath = _baseImagePath;
+  const yearRelease: string = release_date.slice(0, 4);
+
+  const showMoreInfo = () => {
+    setIsModalOpen(true);
+    showDetailInfo(id);
+  };
 
   return (
-    <article className='card stacked'>
-      <div className='image-wrap'>
-        <img className='card-image' src={images[0]} alt='image' />
+    <article className='card-item' role='card-item'>
+      <div className='card-item__image'>
+        <img src={`https://${baseImagePath}${poster_path}`} alt='poster of film' />
       </div>
-      <div className='card-content card-content-wrapper'>
-        <div className='card-side card-content-button'>
-          <h2 className='card-title'>{title}</h2>
-          <div className='card-price'>{price}$</div>
-          <cite className='card-subtitle'>{brand}</cite>
-          <button className='card-button'>Learn more</button>
+      <div className='card-item__content'>
+        <div className='card-item__title-container'>
+          <h2 className='card-item__title'>
+            {original_title ? original_title : title}
+            <span className='card-item__year'>{`, ${yearRelease}`}</span>
+          </h2>
         </div>
+        <button className='card-item__button btn' onClick={showMoreInfo} role='showMoreInfo-button'>
+          Learn more
+        </button>
       </div>
-      <span className='tag top-left'>Top</span>
+      <span className='tag top-left'>{vote_average}</span>
     </article>
   );
 };
