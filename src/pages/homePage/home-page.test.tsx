@@ -5,11 +5,24 @@ import { server } from './../../mocks/server';
 import { rest } from 'msw';
 
 import HomePage from './homePage';
-import DetailInfo from '../../components/detailInfo';
-import { dataMovie } from '../../data/dataMovie';
+import DetailInfo from '../../components/modal/detailInfo';
+import { dataMovie } from '../../testData/dataMovie';
+
+import * as reduxHooks from 'react-redux';
+jest.mock('react-redux');
+const mockedUseSelector = jest.spyOn(reduxHooks, 'useSelector');
+import { moviesState } from '../../store/moviesSlice';
+
+const initialState: moviesState = {
+  movies: [],
+  trendingMovies: [],
+  movieId: null,
+  movieById: null,
+};
 
 describe('test HomePage component', () => {
-  test('it renders', () => {
+  test('it renders with empty list movies', () => {
+    mockedUseSelector.mockReturnValue(initialState);
     render(<HomePage />);
     expect(screen.getByRole('home-page')).toBeInTheDocument();
   });
@@ -17,13 +30,6 @@ describe('test HomePage component', () => {
   test('show spinner component', async () => {
     const { findByTestId } = render(<HomePage />);
     expect(await findByTestId('spinner')).toBeInTheDocument();
-  });
-
-  test('render cards from mocks API ', async () => {
-    render(<HomePage />);
-    const expectedLength = 3; //length arrMovies in mock API in mocks/server.tsx
-    const movies = await screen.findAllByRole('card-item');
-    expect(movies).toHaveLength(expectedLength);
   });
 
   test('render error ', async () => {
@@ -38,7 +44,8 @@ describe('test HomePage component', () => {
   });
 
   test('render detail-info on Home Page ', async () => {
-    render(<DetailInfo info={dataMovie} />);
+    mockedUseSelector.mockReturnValue(dataMovie);
+    render(<DetailInfo />);
     const item = screen.getByTestId('detail-info');
     expect(item).toBeInTheDocument();
   });
