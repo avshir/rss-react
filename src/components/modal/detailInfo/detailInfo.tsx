@@ -1,14 +1,11 @@
 import React from 'react';
 
 import './detailInfo.scss';
-import { IMovie } from '../types';
+import { useAppSelector } from '../../../hook';
 
-type DetailInfoProps = {
-  info: IMovie | null;
-};
-
-const DetailInfo = ({ info }: DetailInfoProps) => {
-  const { overview, title, homepage } = info!;
+const DetailInfo: React.FC = () => {
+  const movieById = useAppSelector((state) => state.moviesReducer.movieById);
+  const { overview, title, homepage } = movieById!;
 
   return (
     <div className='detail-info' data-testid='detail-info'>
