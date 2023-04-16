@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import CardForm from '../cardForm';
-import { useAppSelector } from '../../hook';
+import { useAppSelector } from '../../../hook';
 
 import './cardForm-list.scss';
 

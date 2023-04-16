@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import './form.scss';
-import { ICardForm } from '../cardForm/cardForm';
+import { ICardForm } from './cardForm/cardForm';
 import { errorTextMessage } from './form-utils';
 import { useAppDispatch } from '../../hook';
 import { addCardForm } from '../../store/formSlice';

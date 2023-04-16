@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import './formPage.scss';
 
 import Form from '../../components/form';
-import CardFormList from '../../components/cardForm-list';
+import CardFormList from '../../components/form/cardForm-list';
 
 const FormPage: FC = () => {
   return (

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
-import CardForm from '../../components/cardForm/cardForm';
-import { testCardForm } from '../../testData/testCardForm';
+import CardForm from './cardForm';
+import { testCardForm } from '../../../testData/testCardForm';
 
 describe('test CardForm component', () => {
   test('CardForm renders', () => {

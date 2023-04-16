@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { testCardsForm } from '../../testData/testCardsForm';
+import { testCardsForm } from '../../../testData/testCardsForm';
 import CardFormList from './cardForm-list';
 
 describe('test CardFormList component', () => {

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
 import Card from './card';
-import { dataMovie } from '../../data/dataMovie';
+import { dataMovie } from '../../testData/dataMovie';
 
 describe('test Card component', () => {
   const mockFunction = jest.fn();

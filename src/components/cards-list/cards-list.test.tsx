@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import CardsList from './cards-list';
-import { dataMovie } from '../../data/dataMovie';
+import { dataMovie } from '../../testData/dataMovie';
 import { IMovie } from '../types';
 
 describe('test CardsList component', () => {
