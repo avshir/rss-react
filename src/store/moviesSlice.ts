@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IMovie } from '../components/types';
 
-type moviesState = {
+export type moviesState = {
   movies: IMovie[];
   trendingMovies: IMovie[];
   movieId: number | null;
