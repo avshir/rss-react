@@ -5,7 +5,7 @@ const _apiKey = '75b017a3a227731c05610048a94948e5';
 export const _baseImagePath = 'image.tmdb.org/t/p/w300';
 const _lang = 'en-US';
 
-const getResource = async (url: string) => {
+export const getResource = async (url: string) => {
   const res = await fetch(`${_apiBase}${url}?api_key=${_apiKey}`);
 
   //handle all answers, except 200 ok
