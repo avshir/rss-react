@@ -1,16 +1,18 @@
 import React, { MouseEvent, ReactElement } from 'react';
+import { useAppDispatch } from '../../hook';
+import { toggleModal } from './../../store/moviesSlice';
 
 import './modal.scss';
 
 type ModalProps = {
-  isModalOpen: boolean;
-  setIsModalOpen: (newValue: boolean) => void;
   children: ReactElement;
 };
 
-const Modal = ({ setIsModalOpen, children }: ModalProps) => {
+const Modal = ({ children }: ModalProps) => {
+  const dispatch = useAppDispatch();
+
   const closeModal = () => {
-    setIsModalOpen(false);
+    dispatch(toggleModal());
   };
 
   const unCloseModal = (e: MouseEvent<HTMLElement>): void => {
