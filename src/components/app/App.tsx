@@ -12,7 +12,7 @@ import Layout from '../layout';
 export default class App extends Component<{}, {}> {
   render() {
     return (
-      <div className='App wrapper'>
+      <div className='App wrapper' role='app'>
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<HomePage />}></Route>

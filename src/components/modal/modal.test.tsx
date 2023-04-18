@@ -1,12 +1,15 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import Modal from './modal';
 
-const foo = jest.fn();
+import * as reduxHooks from 'react-redux';
+import * as actions from './../../store/moviesSlice';
+jest.mock('react-redux');
+const mockedUseDispatch = jest.spyOn(reduxHooks, 'useDispatch');
 
 describe('test Modal', () => {
   it('render modal', () => {
     render(
-      <Modal isModalOpen={false} setIsModalOpen={foo}>
+      <Modal>
         <p>test</p>
       </Modal>
     );
@@ -14,9 +17,16 @@ describe('test Modal', () => {
     expect(modal).toBeInTheDocument();
   });
 
+  it('render Modal with "children" content', () => {
+    const children = <p>test</p>;
+    render(<Modal>{children}</Modal>);
+    const content = screen.getByText('test');
+    expect(content).toBeInTheDocument();
+  });
+
   it('render close-modal button in Modal', () => {
     render(
-      <Modal isModalOpen={false} setIsModalOpen={foo}>
+      <Modal>
         <p>test</p>
       </Modal>
     );
@@ -24,14 +34,21 @@ describe('test Modal', () => {
     expect(closeButton).toBeInTheDocument();
   });
 
-  it('onClick by "close-modal" call function ', () => {
+  it('onClick by "close-modal" dispatch "toggleModal"', () => {
+    const dispatch = jest.fn();
+    mockedUseDispatch.mockReturnValue(dispatch);
+    const mockedToggleModal = jest.spyOn(actions, 'toggleModal');
+
     render(
-      <Modal isModalOpen={false} setIsModalOpen={foo}>
+      <Modal>
         <p>test</p>
       </Modal>
     );
+
     const closeButton = screen.getByTestId('close-modal');
     fireEvent.click(closeButton);
-    expect(foo).toHaveBeenCalledTimes(1);
+
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(mockedToggleModal).toHaveBeenCalledTimes(1);
   });
 });

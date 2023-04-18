@@ -3,15 +3,24 @@ import { render, screen } from '@testing-library/react';
 import App from './App';
 import { MemoryRouter } from 'react-router-dom';
 
+import * as reduxHooks from 'react-redux';
 jest.mock('react-redux');
+const mockedUseSelector = jest.spyOn(reduxHooks, 'useSelector');
+const mockedUseDispatch = jest.spyOn(reduxHooks, 'useDispatch');
+import { initialState } from '../../store/moviesSlice';
 
 describe('test App component', () => {
   test('it renders', () => {
+    mockedUseSelector.mockReturnValue(initialState);
+    const dispatch = jest.fn();
+    mockedUseDispatch.mockReturnValue(dispatch);
+
     render(
       <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>
     );
+    expect(screen.getByRole('app')).toBeInTheDocument();
     screen.debug();
   });
 
