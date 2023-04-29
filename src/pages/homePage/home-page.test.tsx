@@ -14,9 +14,9 @@ import { initialState } from '../../store/moviesSlice';
 
 describe('test HomePage component', () => {
   test('it renders with empty list movies', () => {
+    mockedUseSelector.mockReturnValue(initialState);
     const dispatch = jest.fn();
     mockedUseDispatch.mockReturnValue(dispatch);
-    mockedUseSelector.mockReturnValue(initialState);
 
     render(<HomePage />);
     expect(screen.getByRole('home-page')).toBeInTheDocument();
