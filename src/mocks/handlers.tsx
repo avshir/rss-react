@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { dataMovie } from '../data/dataMovie';
+import { dataMovie } from '../testData/dataMovie';
 
 export const handlers = [
   rest.post('/login', (req, res, ctx) => {

@@ -1,16 +1,14 @@
 import React, { FC } from 'react';
 
-import { ICardForm } from '../cardForm/cardForm';
 import CardForm from '../cardForm';
+import { useAppSelector } from '../../../hook';
 
 import './cardForm-list.scss';
 
-type CardFormListProps = {
-  cardsForm: ICardForm[];
-};
+const CardFormList: FC = () => {
+  const cardsForm = useAppSelector((state) => state.formReducer.cardsForm);
 
-const CardFormList: FC<CardFormListProps> = (props: CardFormListProps) => {
-  const cards = props.cardsForm.map((card) => {
+  const cards = cardsForm.map((card) => {
     const { id } = card;
 
     return (

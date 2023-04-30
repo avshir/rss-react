@@ -2,12 +2,10 @@ import React, { FC, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import './form.scss';
-import { ICardForm } from '../cardForm/cardForm';
+import { ICardForm } from './cardForm/cardForm';
 import { errorTextMessage } from './form-utils';
-
-type FormProps = {
-  addCardForm: (card: ICardForm) => void;
-};
+import { useAppDispatch } from '../../hook';
+import { addCardForm } from '../../store/formSlice';
 
 type FormValues = {
   userName: string;
@@ -19,13 +17,15 @@ type FormValues = {
   gender: string;
 };
 
-const Form: FC<FormProps> = (props: FormProps) => {
+const Form: FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm<FormValues>({ mode: 'onSubmit' });
+
+  const dispatch = useAppDispatch();
 
   const [success, setSuccess] = useState('');
 
@@ -40,9 +40,9 @@ const Form: FC<FormProps> = (props: FormProps) => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { image, ...dataLast } = data;
     const imageSrc: string = URL.createObjectURL(image[0]);
-    const newCardForm: ICardForm = { imageSrc, ...dataLast };
-
-    props.addCardForm(newCardForm);
+    const id = new Date().toISOString();
+    const newCardForm: ICardForm = { imageSrc, ...dataLast, id };
+    dispatch(addCardForm(newCardForm));
 
     showSuccessMessage();
     reset();

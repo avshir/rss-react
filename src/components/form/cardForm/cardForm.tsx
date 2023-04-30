@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import './cardForm.scss';
 
 export interface ICardForm {
-  id?: number;
+  id?: string;
   userName: string;
   gender: string;
   birthday: string;

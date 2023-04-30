@@ -1,8 +1,8 @@
-import { ICardForm } from '../components/cardForm/cardForm';
+import { ICardForm } from '../components/form/cardForm/cardForm';
 
 export const testCardsForm: ICardForm[] = [
   {
-    id: 101,
+    id: '101',
     userName: 'Ivan Bobrov',
     gender: 'male',
     birthday: '21.02.1980',
@@ -12,7 +12,7 @@ export const testCardsForm: ICardForm[] = [
     imageSrc: 'https://i.dummyjson.com/data/products/25/thumbnail.jpg',
   },
   {
-    id: 102,
+    id: '102',
     userName: 'ALen Koch',
     gender: 'female',
     birthday: '21.02.1990',
@@ -22,7 +22,7 @@ export const testCardsForm: ICardForm[] = [
     imageSrc: 'https://i.dummyjson.com/data/products/25/thumbnail.jpg',
   },
   {
-    id: 103,
+    id: '103',
     userName: 'Anna Sh',
     gender: 'female',
     birthday: '21.02.2222',

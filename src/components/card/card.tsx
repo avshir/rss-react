@@ -4,20 +4,23 @@ import './card.scss';
 import { IMovie } from '../types';
 import { _baseImagePath } from '../../services/movies-services';
 
+import { useAppDispatch } from '../../hook';
+import { toggleModal, updateMovieId } from './../../store/moviesSlice';
+
 type CardProps = {
   item: IMovie;
-  setIsModalOpen: (newValue: boolean) => void;
-  showDetailInfo: (id: number) => void;
 };
 
-const Card = ({ item, setIsModalOpen, showDetailInfo }: CardProps) => {
+const Card = ({ item }: CardProps) => {
   const { id, title, original_title, poster_path, vote_average, release_date } = item;
   const baseImagePath = _baseImagePath;
   const yearRelease: string = release_date.slice(0, 4);
 
+  const dispatch = useAppDispatch();
+
   const showMoreInfo = () => {
-    setIsModalOpen(true);
-    showDetailInfo(id);
+    dispatch(toggleModal());
+    dispatch(updateMovieId(id));
   };
 
   return (

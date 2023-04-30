@@ -1,14 +1,16 @@
 import React from 'react';
 
 import './detailInfo.scss';
-import { IMovie } from '../types';
+import { IMovie } from '../../types';
 
 type DetailInfoProps = {
   info: IMovie | null;
 };
 
-const DetailInfo = ({ info }: DetailInfoProps) => {
-  const { overview, title, homepage } = info!;
+const DetailInfo: React.FC<DetailInfoProps> = ({ info }) => {
+  if (!info) return <></>;
+
+  const { overview, title, homepage } = info;
 
   return (
     <div className='detail-info' data-testid='detail-info'>

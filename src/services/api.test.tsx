@@ -1,4 +1,4 @@
-import { getMovieById, getMoviesBySearch, getTrendingMovies } from './movies-services';
+import { getMovieById, getMoviesBySearch, getTrendingMovies, getResource } from './movies-services';
 
 describe('test API component with mws', () => {
   it('receives all requested data from Api "https://api.themoviedb.org/3/trending/movie/week" ', async () => {
@@ -22,5 +22,11 @@ describe('test API component with mws', () => {
     const expectedLength = 5;
     const data = await getMoviesBySearch('avatar');
     expect(data).toHaveLength(expectedLength);
+  });
+
+  it('should', async () => {
+    const testURL = '/movie/550';
+    const data = await getResource(testURL);
+    expect(data).toBeTruthy();
   });
 });

@@ -1,16 +1,18 @@
 import React, { MouseEvent, ReactElement } from 'react';
+import { useAppDispatch } from '../../hook';
+import { toggleModal } from './../../store/moviesSlice';
 
 import './modal.scss';
 
 type ModalProps = {
-  isModalOpen: boolean;
-  setIsModalOpen: (newValue: boolean) => void;
   children: ReactElement;
 };
 
-const Modal = ({ setIsModalOpen, children }: ModalProps) => {
+const Modal = ({ children }: ModalProps) => {
+  const dispatch = useAppDispatch();
+
   const closeModal = () => {
-    setIsModalOpen(false);
+    dispatch(toggleModal());
   };
 
   const unCloseModal = (e: MouseEvent<HTMLElement>): void => {
@@ -19,8 +21,8 @@ const Modal = ({ setIsModalOpen, children }: ModalProps) => {
 
   return (
     <div className='modal' onClick={closeModal} data-testid='modal'>
-      <div className='modal__content' onClick={unCloseModal}>
-        <div className='modal__close-btn btn btn--round' onClick={closeModal}>
+      <div className='modal__content' onClick={unCloseModal} data-testid='content-modal'>
+        <div className='modal__close-btn btn btn--round' onClick={closeModal} data-testid='close-modal'>
           X
         </div>
         {children}

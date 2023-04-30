@@ -1,32 +1,22 @@
-import React, { ChangeEvent, KeyboardEvent, useState, useEffect, useRef } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useRef } from 'react';
+import { useAppSelector, useAppDispatch } from './../../hook';
+import { updateSearchValue } from '../../store/searchSlice';
 
 import './search-panel.scss';
 
-type SearchPanelProps = {
-  updateSearchValue: (searchValue: string) => void;
-};
-
-const SearchPanel = ({ updateSearchValue }: SearchPanelProps) => {
-  const initSearchValue: string = localStorage.getItem('searchValue') || '';
-  const [searchValue, setSearchValue] = useState(initSearchValue);
+const SearchPanel: React.FC = () => {
+  const searchValue = useAppSelector((state) => state.searchReducer.searchValue);
+  const dispatch = useAppDispatch();
   const searchRef = useRef<string>(searchValue);
-
-  useEffect(() => {
-    //like componentWillUnmount
-    return function saveToLS() {
-      localStorage.setItem('searchValue', searchRef.current);
-    };
-  }, []);
 
   const onSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const newSearchValue = e.target.value.trimStart();
-    setSearchValue(newSearchValue);
     searchRef.current = newSearchValue;
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
-      updateSearchValue(searchValue);
+      dispatch(updateSearchValue(searchRef.current));
     }
   };
 
@@ -37,7 +27,7 @@ const SearchPanel = ({ updateSearchValue }: SearchPanelProps) => {
       type='text'
       className='search-panel search-input btn--border'
       placeholder={searchText}
-      value={searchValue}
+      defaultValue={searchValue}
       onChange={(e) => onSearchChange(e)}
       onKeyDown={handleKeyDown}
       role='search-input'

@@ -1,7 +1,7 @@
-import { ICardForm } from '../components/cardForm/cardForm';
+import { ICardForm } from '../components/form/cardForm/cardForm';
 
 export const testCardForm: ICardForm = {
-  id: 100,
+  id: '100',
   userName: 'Anna Sh',
   gender: 'female',
   birthday: '27.10.1983',
