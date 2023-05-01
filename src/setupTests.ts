@@ -9,3 +9,15 @@ import { server } from './mocks/server';
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
+
+import matchers from '@testing-library/jest-dom/matchers';
+import { fetch, Headers, Request, Response } from 'cross-fetch';
+
+// Add `fetch` polyfill.
+global.fetch = fetch;
+
+global.Headers = Headers;
+global.Request = Request;
+global.Response = Response;
+
+expect.extend(matchers);

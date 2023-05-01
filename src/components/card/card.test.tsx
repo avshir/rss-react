@@ -5,6 +5,7 @@ import { dataMovie } from '../../testData/dataMovie';
 
 import * as reduxHooks from 'react-redux';
 import * as actions from './../../store/moviesSlice';
+import { vi } from 'vitest';
 jest.mock('react-redux');
 const mockedUseDispatch = jest.spyOn(reduxHooks, 'useDispatch');
 
@@ -21,7 +22,7 @@ describe('test Card component', () => {
   });
 
   test('dispatch actions called ', () => {
-    const dispatch = jest.fn();
+    const dispatch = vi.fn();
     mockedUseDispatch.mockReturnValue(dispatch);
     const mockedToggleModal = jest.spyOn(actions, 'toggleModal');
     const mockedUpdateMovieId = jest.spyOn(actions, 'updateMovieId');
