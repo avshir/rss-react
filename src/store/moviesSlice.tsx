@@ -1,4 +1,9 @@
-import { createSlice, PayloadAction, createAsyncThunk, AnyAction } from '@reduxjs/toolkit';
+import * as toolkitRaw from '@reduxjs/toolkit';
+
+type TypeToolkitRaw = typeof toolkitRaw & { default?: unknown };
+const { createSlice, createAsyncThunk } = ((toolkitRaw as TypeToolkitRaw).default ?? toolkitRaw) as typeof toolkitRaw;
+
+import { PayloadAction, AnyAction } from '@reduxjs/toolkit';
 import { IMovie } from '../components/types';
 import { getMovieById, getMoviesBySearch, getTrendingMovies } from '../services/movies-services';
 

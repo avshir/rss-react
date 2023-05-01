@@ -1,4 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
+import * as toolkitRaw from '@reduxjs/toolkit';
+type TypeToolkitRaw = typeof toolkitRaw & { default?: unknown };
+const { configureStore } = ((toolkitRaw as TypeToolkitRaw).default ?? toolkitRaw) as typeof toolkitRaw;
+
 import searchReducer from './searchSlice';
 import moviesReducer from './moviesSlice';
 import formReducer from './formSlice';

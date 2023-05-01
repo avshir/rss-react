@@ -39,7 +39,7 @@
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
     "build": "npm run build:client && npm run build:server",
-    "dev": "node server"
+    "dev": "tsx server.tsx"
   },
   "eslintConfig": {
     "extends": [
@@ -77,6 +77,7 @@
     "lint-staged": "^12.4.1",
     "msw": "^1.2.1",
     "prettier": "2.8.4",
+    "tsx": "^3.12.7",
     "vite": "^4.3.3",
     "vitest": "^0.30.1"
   },
