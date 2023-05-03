@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
 import App from './App';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ import { initialState } from '../../store/moviesSlice';
 describe('test App component', () => {
   test('it renders', () => {
     mockedUseSelector.mockReturnValue(initialState);
-    const dispatch = jest.fn();
+    const dispatch = vi.fn();
     mockedUseDispatch.mockReturnValue(dispatch);
 
     render(
